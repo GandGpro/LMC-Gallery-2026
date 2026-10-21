@@ -6,8 +6,8 @@ Usage:
     python3 add_photos.py /other/folder  # syncs another folder
 
 Each subfolder of the source is a category (e.g. PHOTOS/MAIN STAGE ->
-"Main Stage"). Photos (JPG/PNG/HEIC/TIFF/WEBP) get a 1600px full version and
-a 600px thumbnail via macOS `sips`. Videos (MP4/MOV/M4V) are re-encoded to
+"Main Stage"). Photos (JPG/PNG/HEIC/TIFF/WEBP) get a 2048px full version and
+a 720px thumbnail via macOS `sips`. Videos (MP4/MOV/M4V) are re-encoded to
 1080p with `avconvert` and get a poster via Quick Look.
 
 Files already processed are skipped, files still being copied are skipped
@@ -57,8 +57,8 @@ def resize(src, dst, size, quality):
 
 
 def do_photo(src, name):
-    resize(src, os.path.join(FULL, name + ".jpg"), 1600, 72)
-    resize(os.path.join(FULL, name + ".jpg"), os.path.join(THUMB, name + ".jpg"), 600, 68)
+    resize(src, os.path.join(FULL, name + ".jpg"), 2048, 66)
+    resize(os.path.join(FULL, name + ".jpg"), os.path.join(THUMB, name + ".jpg"), 720, 64)
 
 
 def do_video(src, name):
@@ -72,7 +72,7 @@ def do_video(src, name):
     subprocess.run(["qlmanage", "-t", "-s", "1200", "-o", tmp, out], **QUIET)
     poster = glob.glob(os.path.join(tmp, "*.png"))
     if poster:
-        resize(poster[0], os.path.join(THUMB, name + ".jpg"), 600, 68)
+        resize(poster[0], os.path.join(THUMB, name + ".jpg"), 720, 64)
     shutil.rmtree(tmp, ignore_errors=True)
 
 

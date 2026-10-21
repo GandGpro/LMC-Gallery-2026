@@ -134,9 +134,9 @@
         var exit = REDUCED
           ? prev.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' })
           : prev.animate([
-              { opacity: 1, transform: 'scale(1)', filter: 'blur(0px)' },
-              { opacity: 1, transform: 'scale(1.08)', filter: 'blur(0px)', offset: 0.25 },
-              { opacity: 0, transform: 'scale(1.32)', filter: 'blur(6px)' }
+              { opacity: 1, transform: 'scale(1)' },
+              { opacity: 1, transform: 'scale(1.08)', offset: 0.25 },
+              { opacity: 0, transform: 'scale(1.3)' }
             ], { duration: TRANS, easing: 'cubic-bezier(.5,0,.75,.4)', fill: 'forwards' });
         exit.onfinish = function () {
           if (prev === slideEls[cur]) return; // it came back on screen mid-transition
