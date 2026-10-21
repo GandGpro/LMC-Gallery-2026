@@ -98,8 +98,6 @@ i { font-family: "Playfair Display", serif; font-style: italic; font-weight: 500
 .overlay > * { pointer-events: auto; }
 .overlay-evo { width: clamp(180px, 24vw, 340px); margin: 0 0 -6% -3%; filter: drop-shadow(0 4px 14px rgba(0,0,0,.35)); }
 .overlay-meta { color: var(--cream); font-size: .85rem; letter-spacing: .06em; margin-top: 4px; }
-.overlay-controls { display: flex; align-items: center; gap: 14px; color: var(--cream); }
-.cat-label { font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: .8rem; color: var(--light-pink); }
 .pill {
   background: var(--red); color: var(--cream);
   border: 0; border-radius: 999px; cursor: pointer;
@@ -242,8 +240,6 @@ footer .small { margin-top: 8px; font-size: .8rem; opacity: .8; }
   .show-nav { display: none; }
   .overlay { flex-direction: column; align-items: flex-start; padding: 60px 16px 16px; gap: 10px; }
   .overlay-meta { font-size: .72rem; }
-  .overlay-controls { width: 100%; justify-content: space-between; }
-  .cat-label { font-size: .7rem; }
   .f-cowboy { --rope: 64px; width: 88px; left: 12px; }
   .f-clock { width: 38px; right: 24px; }
   .frame { --mat: 46px; padding: var(--mat) 6px; border-radius: 22px; }

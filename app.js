@@ -129,7 +129,7 @@
   })();
 
   // ---------- Slideshow ----------
-  var show = $('show'), slidesEl = $('slides'), catLabel = $('catLabel');
+  var show = $('show'), slidesEl = $('slides');
   var progress = $('progress');
   var slideEls = [], cur = -1, timer = null, playing = true, req = 0;
 
@@ -137,7 +137,6 @@
     // No photos yet: play the Evophoria cover film in the frame instead
     $('showFallback').hidden = false;
     $('showFallbackBd').hidden = false;
-    $('showControls').hidden = true;
     $('prev').hidden = $('next').hidden = true;
     progress.parentNode.hidden = true;
   } else {
@@ -256,8 +255,6 @@
       }
 
       cur = i;
-      var b = byId[photos[i].brand];
-      catLabel.textContent = b ? b.name : (photos[i].cat || ''); // partners see their own name, not "Sponsors"
       schedule();
     });
   }
