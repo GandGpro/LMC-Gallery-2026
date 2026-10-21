@@ -37,6 +37,21 @@ def natural(s):
     return [int(t) if t.isdigit() else t for t in re.split(r"(\d+)", s.lower())]
 
 
+# Sponsor folder names -> brand IDs used in the site's ?brand= links (anything else is slugified)
+BRAND_ALIASES = {"esteelaude": "esteelauder", "mercedesbenz": "mercedes", "moetchandon": "moet"}
+NOT_BRANDS = re.compile(r"(?i)^(sponsors?( \d+)?|best|empty|selects?|edited|raw)$")
+
+
+def brand_of(rel):
+    """First folder below the category that names a brand, e.g. SPONSORS/SPONSORS 2/SCHWEPPES/x.jpg -> schweppes."""
+    for part in rel.split(os.sep)[1:-1]:
+        part = part.strip()
+        if part and not NOT_BRANDS.match(part):
+            key = re.sub(r"[^a-z0-9]", "", part.lower())
+            return BRAND_ALIASES.get(key, key)
+    return None
+
+
 def category_of(rel):
     parts = rel.split(os.sep)
     return parts[0].strip().title() if len(parts) > 1 else "General"
@@ -194,6 +209,9 @@ def write_out(meta):
     media = []
     for name, m in sorted(meta.items(), key=order):
         entry = {"cat": m["cat"], "thumb": f"gallery/thumbs/{name}.jpg"}
+        brand = brand_of(m["source"])
+        if brand:
+            entry["brand"] = brand
         if m["type"] == "video":
             entry.update(type="video", src=f"gallery/video/{name}.mp4")
         else:

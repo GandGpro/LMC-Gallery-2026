@@ -4,8 +4,61 @@
   var DRIFT = INTERVAL + TRANS + 400; // each photo keeps moving the whole time it's visible
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var media = window.LMC_PHOTOS || [];
+  var allMedia = window.LMC_PHOTOS || [];
   var $ = function (id) { return document.getElementById(id); };
+
+  // ---------- Partners ----------
+  // ?brand=<id> turns the page into that partner's own gallery (slideshow + collection)
+  var BRANDS = window.LMC_BRANDS || [], byId = {}, counts = {};
+  BRANDS.forEach(function (b) { byId[b.id] = b; });
+  allMedia.forEach(function (m) { if (m.brand) counts[m.brand] = (counts[m.brand] || 0) + 1; });
+  var brand = byId[new URLSearchParams(location.search).get('brand')] || null;
+  var media = brand ? allMedia.filter(function (m) { return m.brand === brand.id; }) : allMedia;
+
+  // A logo sized so wide wordmarks and square marks carry similar visual weight
+  function logoEl(b) {
+    if (!b.logo) {
+      var t = document.createElement('span');
+      t.className = 'logo-text';
+      t.textContent = b.name;
+      return t;
+    }
+    var img = document.createElement('img');
+    img.src = 'assets/logos/' + b.logo;
+    img.alt = b.name;
+    img.loading = 'lazy';
+    img.style.setProperty('--lh', (1 / Math.sqrt(b.ar)).toFixed(3));
+    return img;
+  }
+  function partnerEl(b, hidden) {
+    var n = counts[b.id] || 0;
+    var el = document.createElement(n ? 'a' : 'span');
+    el.className = 'partner' + (brand && brand.id === b.id ? ' active' : '');
+    if (n) {
+      el.href = '?brand=' + b.id;
+      el.title = b.name + ' — ' + n + ' photo' + (n === 1 ? '' : 's');
+    }
+    if (hidden) { el.setAttribute('aria-hidden', 'true'); el.tabIndex = -1; }
+    el.appendChild(logoEl(b));
+    return el;
+  }
+  var withLogos = BRANDS.filter(function (b) { return b.logo; });
+  [false, true].forEach(function (dup) { // two copies so the marquee loops seamlessly
+    withLogos.forEach(function (b) { $('marqueeTrack').appendChild(partnerEl(b, dup)); });
+  });
+  withLogos.forEach(function (b) { $('footerPartners').appendChild(partnerEl(b, false)); });
+
+  if (brand) {
+    document.title = brand.name + ' × Evophoria — The Luxurious Marble Circus';
+    var op = $('overlayPartner');
+    op.hidden = false;
+    op.innerHTML = '<span class="times">×</span>';
+    op.appendChild(logoEl(brand));
+    $('collTitle').innerHTML = '<i>Your moments at</i> EVOPHORIA';
+    $('collSub').textContent = media.length + ' photo' + (media.length === 1 ? '' : 's') + ' from ' + brand.name +
+      ' at The Luxurious Marble Circus 2026. Tap any photo to view or download it.';
+    $('backAll').hidden = false;
+  }
 
   // Slideshow: photos only, rotating through categories so it stays varied
   var photos = (function () {
@@ -152,7 +205,8 @@
 
       cur = i;
       counter.textContent = pad(i + 1) + ' / ' + pad(n);
-      catLabel.textContent = photos[i].cat || '';
+      var b = byId[photos[i].brand];
+      catLabel.textContent = b ? b.name : (photos[i].cat || ''); // partners see their own name, not "Sponsors"
       schedule();
     });
   }

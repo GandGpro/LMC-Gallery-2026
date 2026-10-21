@@ -50,7 +50,10 @@
 
     <div class="overlay">
       <div class="overlay-brand">
-        <img src="assets/evophoria.png" alt="Evophoria" class="overlay-evo">
+        <div class="overlay-title">
+          <img src="assets/evophoria.png" alt="Evophoria" class="overlay-evo">
+          <div class="overlay-partner" id="overlayPartner" hidden></div>
+        </div>
         <p class="overlay-meta">26/27 SEPT 2026 · GROUND the VENUE, Muldersdrift</p>
       </div>
       <div class="overlay-controls" id="showControls">
@@ -67,17 +70,26 @@
   <a href="#collection" class="scroll-cue" aria-label="Scroll to the collection"><i>Explore the</i> COLLECTION <span>&#8595;</span></a>
 </section>
 
+<section class="partners" aria-label="Our partners">
+  <p class="partners-label"><i>In partnership with</i></p>
+  <div class="marquee" id="marquee"><div class="marquee-track" id="marqueeTrack"></div></div>
+  <p class="partners-hint">Tap a logo to see that partner's moments</p>
+</section>
+
 <main id="collection">
   <img class="float f-goldfish" src="assets/goldfish.png" alt="" aria-hidden="true">
   <img class="float f-pinkfish" src="assets/pinkfish.png" alt="" aria-hidden="true">
-  <h2 class="section-title"><i>Relive the</i> WONDER</h2>
-  <p class="section-sub">Every moment from Evophoria. Tap any photo to open it.</p>
+  <h2 class="section-title" id="collTitle"><i>Relive the</i> WONDER</h2>
+  <p class="section-sub" id="collSub">Every moment from Evophoria. Tap any photo to open it.</p>
+  <a class="pill back-all" id="backAll" href="./" hidden>View the full gallery</a>
   <div class="filters" id="filters"></div>
   <div class="grid" id="grid"></div>
   <p class="empty" id="empty" hidden><i>The photos are on</i> THEIR WAY. <i>Check back</i> SOON.</p>
 </main>
 
 <footer>
+  <p class="footer-thanks"><i>With thanks to our</i> PARTNERS</p>
+  <div class="footer-partners" id="footerPartners"></div>
   <img src="assets/lmc-x-investec-cream.png" alt="The Luxurious Marble Circus x Investec" class="footer-logo">
   <p><a href="https://luxuriousmarblecircus.com/">luxuriousmarblecircus.com</a></p>
   <p class="small">&copy; 2026 The Luxurious Marble Circus</p>
@@ -95,6 +107,7 @@
 </div>
 
 <script src="gallery/photos.js"></script>
+<script src="brands.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
