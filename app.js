@@ -30,23 +30,76 @@
     img.style.setProperty('--lh', (1 / Math.sqrt(b.ar)).toFixed(3));
     return img;
   }
-  function partnerEl(b, hidden) {
-    var n = counts[b.id] || 0;
-    var el = document.createElement(n ? 'a' : 'span');
-    el.className = 'partner' + (brand && brand.id === b.id ? ' active' : '');
-    if (n) {
-      el.href = '?brand=' + b.id;
-      el.title = b.name + ' — ' + n + ' photo' + (n === 1 ? '' : 's');
+  // Logos fade in and out in slots around the slideshow frame, a few at a time,
+  // never showing the same brand twice at once. Each links to that brand's gallery.
+  var HOLD = 4200, FADE = 900;
+  var mat = $('matLogos'), slots = [], queue = [], qi = 0;
+  var shown = {};
+  (function () {
+    var list = brand ? [brand] : BRANDS.slice();
+    for (var i = list.length - 1; i > 0; i--) { // shuffle so every visit opens differently
+      var j = Math.floor(Math.random() * (i + 1)), t = list[i]; list[i] = list[j]; list[j] = t;
     }
-    if (hidden) { el.setAttribute('aria-hidden', 'true'); el.tabIndex = -1; }
-    el.appendChild(logoEl(b));
+    queue = list;
+  })();
+  function nextBrand() {
+    for (var k = 0; k < queue.length; k++) {
+      var b = queue[qi++ % queue.length];
+      if (!shown[b.id]) return b;
+    }
+    return null;
+  }
+  function slotEl(pos, x) {
+    var el = document.createElement('a');
+    el.className = 'slot ' + pos;
+    el.style.left = x + '%';
+    mat.appendChild(el);
     return el;
   }
-  var withLogos = BRANDS.filter(function (b) { return b.logo; });
-  [false, true].forEach(function (dup) { // two copies so the marquee loops seamlessly
-    withLogos.forEach(function (b) { $('marqueeTrack').appendChild(partnerEl(b, dup)); });
-  });
-  withLogos.forEach(function (b) { $('footerPartners').appendChild(partnerEl(b, false)); });
+  function fillSlot(slot) {
+    var b = nextBrand();
+    if (!b) return;
+    shown[b.id] = true;
+    slot._b = b;
+    slot.innerHTML = '';
+    slot.appendChild(logoEl(b));
+    var n = counts[b.id] || 0;
+    if (n && !brand) { slot.href = '?brand=' + b.id; slot.title = b.name + ' — ' + n + ' photo' + (n === 1 ? '' : 's'); }
+    else { slot.removeAttribute('href'); slot.title = b.name; }
+    slot.setAttribute('aria-label', b.name);
+    requestAnimationFrame(function () { slot.classList.add('on'); });
+  }
+  function cycle(slot) {
+    fillSlot(slot);
+    slot._t = setTimeout(function () {
+      slot.classList.remove('on');
+      slot._t = setTimeout(function () {
+        if (slot._b) delete shown[slot._b.id];
+        cycle(slot);
+      }, FADE);
+    }, HOLD);
+  }
+  function buildSlots() {
+    slots.forEach(function (sl) { clearTimeout(sl._t); });
+    mat.innerHTML = ''; slots = []; shown = {};
+    if (brand) {
+      // A brand's own page: their logo stays put, top and bottom
+      [slotEl('top', 50), slotEl('bottom', 50)].forEach(function (sl) {
+        sl.appendChild(logoEl(brand)); sl.classList.add('on'); sl.title = brand.name;
+      });
+      return;
+    }
+    var phone = window.matchMedia('(max-width: 820px)').matches;
+    var top = phone ? [38, 68] : [24, 42, 60, 78];       // clear of the cowboy (left) and clock (right)
+    var bottom = phone ? [18, 50, 82] : [14, 38, 62, 86];
+    top.forEach(function (x) { slots.push(slotEl('top', x)); });
+    bottom.forEach(function (x) { slots.push(slotEl('bottom', x)); });
+    // Stagger the slots so logos come and go one by one rather than all at once
+    var order = slots.slice().sort(function () { return Math.random() - 0.5; });
+    order.forEach(function (sl, k) { sl._t = setTimeout(function () { cycle(sl); }, k * (HOLD + FADE) / order.length); });
+  }
+  buildSlots();
+  window.matchMedia('(max-width: 820px)').addEventListener('change', buildSlots);
 
   if (brand) {
     document.title = brand.name + ' × Evophoria — The Luxurious Marble Circus';
