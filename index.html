@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Luxurious Marble Circus — Evophoria Gallery</title>
+<meta name="description" content="The official media gallery of The Luxurious Marble Circus x Investec 2026: Evophoria. 26–27 September 2026, Ground the Venue, Muldersdrift.">
+<meta property="og:title" content="The Luxurious Marble Circus — Evophoria Gallery">
+<meta property="og:description" content="Relive the wonder. The official Evophoria gallery from The Luxurious Marble Circus x Investec.">
+<meta property="og:image" content="assets/cover-sm.jpg">
+<meta name="theme-color" content="#f1bad5">
+<link rel="icon" href="assets/pinkfish.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Playfair+Display:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sky" aria-hidden="true">
+  <span class="cloud c1"></span><span class="cloud c2"></span><span class="cloud c3"></span>
+  <span class="cloud c4"></span><span class="cloud c5"></span><span class="cloud c6"></span>
+</div>
+
+<header class="topbar">
+  <a href="https://luxuriousmarblecircus.com/" class="logo" aria-label="The Luxurious Marble Circus x Investec">
+    <img src="assets/lmc-x-investec-red-mono.png" alt="The Luxurious Marble Circus x Investec">
+  </a>
+  <a href="#collection" class="topbar-link">The Collection</a>
+</header>
+
+<section class="hero">
+  <img class="float f-clock" src="assets/clock.png" alt="" aria-hidden="true">
+  <img class="float f-cowboy" src="assets/cowboy.png" alt="" aria-hidden="true">
+
+  <div class="show" id="show" aria-roledescription="carousel" aria-label="Evophoria highlights">
+    <div class="slides" id="slides"></div>
+    <div class="show-fallback-bd" id="showFallbackBd" hidden></div>
+    <video class="show-fallback" id="showFallback" src="assets/cover-motion.mp4" poster="assets/cover-sm.jpg" autoplay muted loop playsinline preload="metadata" hidden></video>
+
+    <div class="overlay">
+      <div class="overlay-brand">
+        <img src="assets/evophoria.png" alt="Evophoria" class="overlay-evo">
+        <p class="overlay-meta">26/27 SEPT 2026 · GROUND the VENUE, Muldersdrift</p>
+      </div>
+      <div class="overlay-controls" id="showControls">
+        <span class="cat-label" id="catLabel"></span>
+        <span class="counter" id="counter"></span>
+        <button id="playPause" class="pill" aria-label="Pause slideshow">Pause</button>
+      </div>
+    </div>
+    <div class="progress"><span id="progress"></span></div>
+    <button class="show-nav prev" id="prev" aria-label="Previous photo">&#8249;</button>
+    <button class="show-nav next" id="next" aria-label="Next photo">&#8250;</button>
+  </div>
+
+  <a href="#collection" class="scroll-cue" aria-label="Scroll to the collection"><i>Explore the</i> COLLECTION <span>&#8595;</span></a>
+</section>
+
+<main id="collection">
+  <img class="float f-goldfish" src="assets/goldfish.png" alt="" aria-hidden="true">
+  <img class="float f-pinkfish" src="assets/pinkfish.png" alt="" aria-hidden="true">
+  <h2 class="section-title"><i>Relive the</i> WONDER</h2>
+  <p class="section-sub">Every moment from Evophoria. Tap any photo to open it.</p>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty" hidden><i>The photos are on</i> THEIR WAY. <i>Check back</i> SOON.</p>
+</main>
+
+<footer>
+  <img src="assets/lmc-x-investec-cream.png" alt="The Luxurious Marble Circus x Investec" class="footer-logo">
+  <p><a href="https://luxuriousmarblecircus.com/">luxuriousmarblecircus.com</a></p>
+  <p class="small">&copy; 2026 The Luxurious Marble Circus</p>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Media viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">&#8249;</button>
+  <div class="lb-media" id="lbMedia"></div>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">&#8250;</button>
+  <div class="lb-bar">
+    <span id="lbCount"></span>
+    <a id="lbDownload" download>Download</a>
+  </div>
+</div>
+
+<script src="gallery/photos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

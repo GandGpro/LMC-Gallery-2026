@@ -1,0 +1,5 @@
+.DS_Store
+.claude/
+gallery/.lock
+gallery/*.tmp
+__pycache__/
