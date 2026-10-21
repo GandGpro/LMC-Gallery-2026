@@ -21,7 +21,7 @@ window.LMC_BRANDS = [
   { id: 'tanqueray',     name: 'Tanqueray',      logo: 'tanqueray.png',     ar: 2.11 },
   { id: 'vaseline',      name: 'Vaseline',       logo: 'vaseline.png',      ar: 1.20 },
   { id: 'vilafonte',     name: 'Vilafonté',      logo: 'vilafonte.png',     ar: 5.53 },
-  { id: '947',           name: '947',            logo: null },
+  { id: '947',           name: '947',            logo: '947.png',           ar: 2.26 },
   { id: 'dunhill',       name: 'Dunhill',        logo: null },
   { id: 'jackpotcity',   name: 'Jackpot City',   logo: null }
 ];
