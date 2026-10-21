@@ -42,6 +42,10 @@ BRAND_ALIASES = {"esteelaude": "esteelauder", "mercedesbenz": "mercedes", "moetc
 NOT_BRANDS = re.compile(r"(?i)^(sponsors?( \d+)?|best|empty|selects?|edited|raw)$")
 
 
+# Brands kept off the website entirely (their source folders are left alone)
+EXCLUDE_BRANDS = {"dunhill"}
+
+
 def brand_of(rel):
     """First folder below the category that names a brand, e.g. SPONSORS/SPONSORS 2/SCHWEPPES/x.jpg -> schweppes."""
     for part in rel.split(os.sep)[1:-1]:
@@ -143,6 +147,8 @@ def sync(src_dir):
         ), key=natural)
         for i, rel in enumerate(files, 1):
             path = os.path.join(src_dir, rel)
+            if brand_of(rel) in EXCLUDE_BRANDS:
+                continue
             cat = category_of(rel)
             kind = "video" if os.path.splitext(rel)[1].lower() in VIDEO_EXTS else "photo"
             name = slug(os.path.splitext(rel)[0])  # full path, so same filenames in different folders don't clash

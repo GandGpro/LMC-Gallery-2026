@@ -130,7 +130,6 @@
 
   // ---------- Slideshow ----------
   var show = $('show'), slidesEl = $('slides');
-  var progress = $('progress');
   var slideEls = [], cur = -1, timer = null, playing = true, req = 0;
 
   if (!photos.length) {
@@ -138,7 +137,6 @@
     $('showFallback').hidden = false;
     $('showFallbackBd').hidden = false;
     $('prev').hidden = $('next').hidden = true;
-    progress.parentNode.hidden = true;
   } else {
     photos.forEach(function (p, i) {
       var s = document.createElement('div');
@@ -261,12 +259,7 @@
 
   function schedule() {
     clearTimeout(timer);
-    progress.style.transition = 'none';
-    progress.style.width = '0';
     if (!playing || photos.length < 2) return;
-    progress.offsetWidth; // reflow so the transition restarts
-    progress.style.transition = 'width ' + INTERVAL + 'ms linear';
-    progress.style.width = '100%';
     timer = setTimeout(function () { go(cur + 1); }, INTERVAL);
   }
   function setPlaying(v) {
