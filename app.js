@@ -75,7 +75,9 @@
     var W = show.clientWidth, H = show.clientHeight;
     var ar = (p.w && p.h) ? p.w / p.h : (img.naturalWidth / img.naturalHeight || 1.5);
     var r = ar / (W / H);
-    var cover = r > 0.55 && r < 2.6; // fill the frame unless the shapes are wildly different
+    // Fill the frame unless the shapes are wildly different. On tall phone screens landscape
+    // photos fill the screen too, and the pan sweeps across them to reveal the full width.
+    var cover = r > 0.55 && r < (W / H < 0.75 ? 3.6 : 2.6);
     var w, h;
     if (cover === (ar > W / H)) { h = H; w = H * ar; } else { w = W; h = W / ar; }
     img.style.width = w + 'px';
