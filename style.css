@@ -44,12 +44,11 @@ i { font-family: "Playfair Display", serif; font-style: italic; font-weight: 500
 .topbar {
   position: sticky; top: 0; z-index: 20;
   height: var(--header-h);
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
   background: var(--pink);
   padding: 0 24px;
 }
 .logo img { height: 22px; width: auto; }
-.topbar-link { color: var(--red); text-decoration: none; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: .85rem; white-space: nowrap; }
 
 /* ---------- Hero slideshow ---------- */
 .hero {
@@ -101,7 +100,6 @@ i { font-family: "Playfair Display", serif; font-style: italic; font-weight: 500
 .overlay-meta { color: var(--cream); font-size: .85rem; letter-spacing: .06em; margin-top: 4px; }
 .overlay-controls { display: flex; align-items: center; gap: 14px; color: var(--cream); }
 .cat-label { font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: .8rem; color: var(--light-pink); }
-.counter { font-weight: 700; letter-spacing: .12em; font-variant-numeric: tabular-nums; font-size: .85rem; }
 .pill {
   background: var(--red); color: var(--cream);
   border: 0; border-radius: 999px; cursor: pointer;
@@ -239,7 +237,6 @@ footer .small { margin-top: 8px; font-size: .8rem; opacity: .8; }
   :root { --header-h: 48px; }
   .topbar { padding: 0 16px; }
   .logo img { height: 15px; }
-  .topbar-link { font-size: .72rem; }
   .hero { padding: 2px 8px 46px; }
   .show { border-width: 3px; border-radius: 15px; }
   .show-nav { display: none; }

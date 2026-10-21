@@ -64,7 +64,7 @@
     slot.innerHTML = '';
     slot.appendChild(logoEl(b));
     var n = counts[b.id] || 0;
-    if (n && !brand) { slot.href = '?brand=' + b.id; slot.title = b.name + ' — ' + n + ' photo' + (n === 1 ? '' : 's'); }
+    if (n && !brand) { slot.href = '?brand=' + b.id; slot.title = 'See ' + b.name + ' at Evophoria'; }
     else { slot.removeAttribute('href'); slot.title = b.name; }
     slot.setAttribute('aria-label', b.name);
     requestAnimationFrame(function () { slot.classList.add('on'); });
@@ -108,8 +108,7 @@
     op.innerHTML = '<span class="times">×</span>';
     op.appendChild(logoEl(brand));
     $('collTitle').innerHTML = '<i>Your moments at</i> EVOPHORIA';
-    $('collSub').textContent = media.length + ' photo' + (media.length === 1 ? '' : 's') + ' from ' + brand.name +
-      ' at The Luxurious Marble Circus 2026. Tap any photo to view or download it.';
+    $('collSub').textContent = brand.name + ' at The Luxurious Marble Circus 2026. Tap any photo to view or download it.';
     $('backAll').hidden = false;
   }
 
@@ -130,8 +129,8 @@
   })();
 
   // ---------- Slideshow ----------
-  var show = $('show'), slidesEl = $('slides'), counter = $('counter'), catLabel = $('catLabel');
-  var progress = $('progress'), playBtn = $('playPause');
+  var show = $('show'), slidesEl = $('slides'), catLabel = $('catLabel');
+  var progress = $('progress');
   var slideEls = [], cur = -1, timer = null, playing = true, req = 0;
 
   if (!photos.length) {
@@ -257,13 +256,11 @@
       }
 
       cur = i;
-      counter.textContent = pad(i + 1) + ' / ' + pad(n);
       var b = byId[photos[i].brand];
       catLabel.textContent = b ? b.name : (photos[i].cat || ''); // partners see their own name, not "Sponsors"
       schedule();
     });
   }
-  function pad(x) { return (x < 10 ? '0' : '') + x; }
 
   function schedule() {
     clearTimeout(timer);
@@ -277,8 +274,6 @@
   }
   function setPlaying(v) {
     playing = v;
-    playBtn.textContent = v ? 'Pause' : 'Play';
-    playBtn.setAttribute('aria-label', v ? 'Pause slideshow' : 'Play slideshow');
     slideEls.forEach(function (s) {
       var im = s.querySelector('img');
       if (im && im._drift) v ? im._drift.play() : im._drift.pause();
@@ -286,7 +281,6 @@
     schedule();
   }
 
-  playBtn.addEventListener('click', function () { setPlaying(!playing); });
   $('prev').addEventListener('click', function () { go(cur - 1); });
   $('next').addEventListener('click', function () { go(cur + 1); });
   slidesEl.addEventListener('click', function () {
@@ -374,8 +368,6 @@
       el.src = m.src; el.alt = m.alt || '';
     }
     lbMedia.appendChild(el);
-    var v = visible();
-    $('lbCount').textContent = (v.indexOf(lbCur) + 1) + ' / ' + v.length;
     $('lbDownload').href = m.src;
   }
   function openLB(i) {
