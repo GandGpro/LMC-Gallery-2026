@@ -22,6 +22,6 @@ window.LMC_BRANDS = [
   { id: 'vaseline',      name: 'Vaseline',       logo: 'vaseline.png',      ar: 1.20 },
   { id: 'vilafonte',     name: 'Vilafonté',      logo: 'vilafonte.png',     ar: 5.53 },
   { id: '947',           name: '947',            logo: '947.png',           ar: 2.26 },
-  { id: 'dunhill',       name: 'Dunhill',        logo: null },
-  { id: 'jackpotcity',   name: 'Jackpot City',   logo: null }
+  { id: 'dunhill',       name: 'Dunhill',        logo: 'dunhill.png',       ar: 1.05 },
+  { id: 'jackpotcity',   name: 'Jackpot City',   logo: 'jackpotcity.png',   ar: 3.66 }
 ];
