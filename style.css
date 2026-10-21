@@ -127,7 +127,17 @@ i { font-family: "Playfair Display", serif; font-style: italic; font-weight: 500
 /* Floating elements (kept to the edges so the photos stay the hero) */
 .float { position: absolute; z-index: 3; pointer-events: none; filter: drop-shadow(0 12px 20px rgba(96,20,84,.25)); }
 .f-clock    { width: clamp(46px, 5vw, 80px);   top: -14px; right: clamp(40px, 8vw, 140px); animation: dangle 5s ease-in-out infinite; transform-origin: 50% 0; }
-.f-cowboy   { width: clamp(90px, 10vw, 160px); top: 24%; left: -6px; animation: swing 6s ease-in-out infinite; transform-origin: 60% 0; }
+/* The cowboy hangs from a rope tied off under the header, like the clock's chain,
+   and swings from that point. 55.9% / 2.6% = the hook where his ropes meet in the image. */
+.f-cowboy   { --rope: clamp(70px, 16vh, 170px); width: clamp(100px, 10vw, 160px); top: -18px; left: clamp(24px, 4vw, 72px); animation: swing 6s ease-in-out infinite; transform-origin: 55.9% 0; }
+.f-cowboy .rope {
+  position: absolute; top: 0; left: calc(55.9% - 1.5px);
+  width: 3px; height: calc(var(--rope) + 1px); border-radius: 2px;
+  background: repeating-linear-gradient(160deg, #e8a46a 0 3px, #924c24 3px 5px);
+}
+.f-cowboy .swing-body { position: relative; margin-top: calc(var(--rope) - 2.6%); }
+.f-cowboy .swing-body img { width: 100%; }
+.f-cowboy .swing-body svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .f-goldfish { width: clamp(60px, 7vw, 110px);  top: 20px; left: max(8px, calc(50% - 560px)); animation: swim 9s ease-in-out infinite; }
 .f-pinkfish { width: clamp(70px, 8vw, 130px);  top: 10px; right: max(8px, calc(50% - 580px)); animation: swim 11s ease-in-out infinite reverse; }
 @keyframes swing  { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
@@ -198,7 +208,7 @@ footer .small { margin-top: 8px; font-size: .8rem; opacity: .8; }
   .overlay-meta { font-size: .72rem; }
   .overlay-controls { width: 100%; justify-content: space-between; }
   .cat-label { font-size: .7rem; }
-  .f-cowboy { width: 70px; top: 18%; left: -10px; }
+  .f-cowboy { --rope: 64px; width: 88px; left: 12px; }
   .f-clock { width: 38px; right: 24px; }
   .grid { columns: 2 150px; column-gap: 8px; }
   .tile { margin-bottom: 8px; border-radius: 10px; }

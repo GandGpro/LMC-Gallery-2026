@@ -31,7 +31,17 @@
 
 <section class="hero">
   <img class="float f-clock" src="assets/clock.png" alt="" aria-hidden="true">
-  <img class="float f-cowboy" src="assets/cowboy.png" alt="" aria-hidden="true">
+  <div class="float f-cowboy" aria-hidden="true">
+    <span class="rope"></span>
+    <div class="swing-body">
+      <img src="assets/cowboy.png" alt="">
+      <!-- joins his two swing ropes to a single hook, in the image's own pixel space -->
+      <svg viewBox="0 0 346 337" preserveAspectRatio="none">
+        <path d="M193.5 9 L180 36 M193.5 9 L221 66" stroke="#c98048" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <circle cx="193.5" cy="9" r="5.5" fill="none" stroke="#d4a63c" stroke-width="3"/>
+      </svg>
+    </div>
+  </div>
 
   <div class="show" id="show" aria-roledescription="carousel" aria-label="Evophoria highlights">
     <div class="slides" id="slides"></div>
